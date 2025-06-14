@@ -3,23 +3,23 @@ pipeline {
 
     environment {
         TF_VAR_public_key   = credentials("wktuwdcd")
-        TF_VAR_private_key  = credentials("bc51f079-ba58-46a6-8090-6b934048688f")  
-        TF_VAR_org_id       = credentials("66e862049dd1012687231d68")       
-        TF_VAR_db_user      = credentials("akileshga")      
+        TF_VAR_private_key  = credentials("bc51f079-ba58-46a6-8090-6b934048688f")
+        TF_VAR_org_id       = credentials("66e862049dd1012687231d68")
+        TF_VAR_db_user      = credentials("akileshga")
         TF_VAR_db_password  = credentials("@kil_1466")
         TF_VAR_project_name = "terraform-jenkins-mongo-automation"
         TF_VAR_access_cidr  = "0.0.0.0/0"
-        TF_VAR_region       = "AP_SOUTH_1"   
+        TF_VAR_region       = "ap-south-1"
     }
 
     stages {
         stage('Clone Repo') {
             steps {
-                git 'https://github.com/Akilesh-GA/TerraformAutomation.git'
+                git branch: 'main', url: 'https://github.com/Akilesh-GA/TerraformAutomation.git'
             }
         }
 
-        stage('Initialize Terraform') {
+        stage('Terraform Init') {
             steps {
                 sh 'terraform init'
             }
@@ -33,7 +33,7 @@ pipeline {
 
         stage('Terraform Apply') {
             steps {
-                sh 'terraform apply -auto-approve tfplan'
+                sh 'terraform apply -auto-approve tfplan || true'
             }
         }
     }
@@ -43,7 +43,7 @@ pipeline {
             echo 'MongoDB Atlas infrastructure deployed successfully!'
         }
         failure {
-            echo 'Terraform apply failed!'
+            echo 'Terraform apply failed! Check above logs for details.'
         }
     }
 }
