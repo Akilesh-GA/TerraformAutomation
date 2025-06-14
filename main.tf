@@ -14,8 +14,7 @@ provider "mongodbatlas" {
 }
 
 data "mongodbatlas_project" "project" {
-  name   = "terraform-jenkins-mongo-automation"
-  org_id = "66e862049dd1012687231d68"
+  name = "terraform-jenkins-mongo-automation"
 }
 
 resource "mongodbatlas_cluster" "cluster" {
