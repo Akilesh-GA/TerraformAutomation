@@ -2,11 +2,11 @@ pipeline {
     agent any
 
     environment {
-        TF_VAR_public_key   = credentials('atlas-public-key')   
-        TF_VAR_private_key  = credentials('atlas-private-key')  
-        TF_VAR_org_id       = credentials('atlas-org-id')       
-        TF_VAR_db_user      = credentials('mongo-db-user')      
-        TF_VAR_db_password  = credentials('mongo-db-pass')      
+        TF_VAR_public_key   = credentials('wktuwdcd')   
+        TF_VAR_private_key  = credentials('bc51f079-ba58-46a6-8090-6b934048688f')  
+        TF_VAR_org_id       = credentials('66e862049dd1012687231d68')       
+        TF_VAR_db_user      = credentials('akileshga')      
+        TF_VAR_db_password  = credentials('@kil_1466')      
     }
 
     stages {
