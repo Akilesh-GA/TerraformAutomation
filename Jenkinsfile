@@ -19,6 +19,14 @@ pipeline {
             }
         }
 
+        stage('Debug Info') {
+            steps {
+                bat 'echo Current Directory: %cd%'
+                bat 'dir'
+                bat 'terraform version || echo Terraform not installed!'
+            }
+        }
+
         stage('Terraform Init') {
             steps {
                 bat 'terraform init'
@@ -33,17 +41,17 @@ pipeline {
 
         stage('Terraform Apply') {
             steps {
-                bat 'terraform apply -auto-approve tfplan || true'
+                bat 'terraform apply -auto-approve tfplan'
             }
         }
     }
 
     post {
         success {
-            echo 'MongoDB Atlas infrastructure deployed successfully!'
+            echo '✅ MongoDB Atlas infrastructure deployed successfully!'
         }
         failure {
-            echo 'Terraform apply failed! Check above logs for details.'
+            echo '❌ Terraform apply failed! Check above logs for details.'
         }
     }
 }
