@@ -1,5 +1,5 @@
 output "project_id" {
-  value = mongodbatlas_project.project.id
+  value = data.mongodbatlas_project.project.id
 }
 
 output "cluster_name" {
@@ -7,5 +7,5 @@ output "cluster_name" {
 }
 
 output "connection_string" {
-  value = mongodbatlas_cluster.cluster.connection_strings.standard_srv
+  value = mongodbatlas_cluster.cluster.connection_strings[0].standard_srv
 }
