@@ -2,9 +2,11 @@ terraform {
   required_providers {
     mongodbatlas = {
       source  = "mongodb/mongodbatlas"
-      version = "~> 1.14.0"
+      version = "~> 1.10.0"
     }
   }
+
+  required_version = ">= 1.0"
 }
 
 provider "mongodbatlas" {
@@ -18,22 +20,12 @@ resource "mongodbatlas_project" "project" {
 }
 
 resource "mongodbatlas_cluster" "cluster" {
-  project_id     = mongodbatlas_project.project.id
-  name           = var.cluster_name
-  cluster_type   = "REPLICASET"
-  provider_name  = "AWS"
-  region_name    = var.region
-  backing_provider_name = "AWS"
-
-  replication_specs {
-    num_shards = 1
-    regions_config {
-      region_name     = var.region
-      electable_nodes = 3
-      priority        = 7
-    }
-  }
-
+  project_id   = mongodbatlas_project.project.id
+  name         = "${var.project_name}-cluster"
+  cluster_type = "REPLICASET"
+  provider_name = "AWS"
+  provider_region_name = var.region
+  provider_instance_size_name = "M0"  # Free tier
   provider_backup_enabled = false
 }
 
@@ -44,13 +36,13 @@ resource "mongodbatlas_database_user" "db_user" {
   auth_database_name = "admin"
 
   roles {
-    role_name     = "readWrite"
+    role_name     = "readWriteAnyDatabase"
     database_name = "admin"
   }
 }
 
-resource "mongodbatlas_project_ip_access_list" "access_list" {
+resource "mongodbatlas_project_ip_access_list" "ip_whitelist" {
   project_id = mongodbatlas_project.project.id
   cidr_block = var.access_cidr
-  comment    = "Allow all IPs for demo"
+  comment    = "Added via Terraform"
 }
