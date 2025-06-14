@@ -7,7 +7,7 @@ pipeline {
         TF_VAR_org_id       = credentials('66e862049dd1012687231d68')       
         TF_VAR_db_user      = credentials('akileshga')      
         TF_VAR_db_password  = credentials('@kil_1466')
-        TF_VAR_project_name = 'terraform-mongodb-jenkins'
+        TF_VAR_project_name = 'terraform-jenkins-mongo-automation'
         TF_VAR_access_cidr  = '0.0.0.0/0'
         TF_VAR_region       = 'AP_SOUTH_1'   
     }
