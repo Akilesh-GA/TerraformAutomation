@@ -19,29 +19,21 @@ pipeline {
             }
         }
 
-        stage('Debug Info') {
-            steps {
-                bat 'echo Current Directory: %cd%'
-                bat 'dir'
-                bat 'terraform version || echo Terraform not installed!'
-            }
-        }
-
         stage('Terraform Init') {
             steps {
-                bat 'terraform init'
+                bat '"D:\\Terraform\\terraform.exe" init'
             }
         }
 
         stage('Terraform Plan') {
             steps {
-                bat 'terraform plan -out=tfplan'
+                bat '"D:\\Terraform\\terraform.exe" plan -out=tfplan'
             }
         }
 
         stage('Terraform Apply') {
             steps {
-                bat 'terraform apply -auto-approve tfplan'
+                bat '"D:\\Terraform\\terraform.exe" apply -auto-approve tfplan'
             }
         }
     }
